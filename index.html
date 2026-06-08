@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Ciudad de Tu Vida — Uruguay | RIL</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blanco:   #FFFFFF;
+    --crema:    #F5F3EE;
+    --crema2:   #EDEAE3;
+    --naranja:  #E8621A;
+    --naranja2: #FF7A35;
+    --negro:    #111110;
+    --negro2:   #1C1C1A;
+    --gris1:    #2A2928;
+    --gris1b:   #252523;
+    --gris2:    #5A5855;
+    --gris3:    #8A8784;
+    --gris4:    #C4C2BD;
+    --verde:    #2D7A4F;
+    --verde-bg: #EAF5EE;
+    --rojo:     #C84040;
+    --border:   rgba(255,255,255,0.09);
+    --input-bg: #1E1E1C;
+    --form-txt: #E8E6E0;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--crema);
+    color: var(--negro);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  header {
+    background: var(--blanco);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px;
+  }
+  .logo-ril {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 3px;
+    color: var(--negro); text-decoration: none;
+  }
+  .logo-ril span { color: var(--naranja); }
+  .nav-tag {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--gris3);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--crema2);
+    border-bottom: 2px solid var(--border);
+    padding: 64px 40px 56px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -60px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: var(--naranja); opacity: 0.08;
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,98,26,0.15);
+    border: 1px solid rgba(232,98,26,0.35);
+    color: var(--naranja2);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .hero-eyebrow::before { content: '●'; font-size: 7px; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 84px);
+    line-height: 0.93; letter-spacing: 2px;
+    color: var(--negro); margin-bottom: 6px;
+  }
+  .hero h1 em { color: var(--naranja); font-style: normal; }
+  .hero-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    letter-spacing: 4px; color: var(--gris2);
+    margin-bottom: 28px;
+  }
+  .hero-desc {
+    font-size: 15px; font-weight: 300; line-height: 1.75;
+    color: var(--gris2);
+    max-width: 620px;
+    border-left: 2px solid var(--naranja); padding-left: 16px;
+  }
+  .hero-desc p + p { margin-top: 10px; }
+  .hero-desc a { color: var(--naranja); }
+
+  /* ── LAYOUT DOS COLUMNAS ── */
+  .two-col {
+    max-width: 1100px; margin: 0 auto;
+    padding: 48px 40px 80px;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+    .card-preview-wrap { order: -1; }
+  }
+  @media (max-width: 600px) {
+    header, .hero { padding-left: 20px; padding-right: 20px; }
+    .two-col { padding: 28px 20px 60px; gap: 28px; }
+  }
+
+  /* ── FORM SIDE ── */
+  .form-side {}
+  .sec-label {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px; margin-top: 44px;
+  }
+  .sec-label:first-child { margin-top: 0; }
+  .sec-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 2px; color: var(--naranja);
+    min-width: 24px;
+  }
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px; letter-spacing: 3px;
+    color: var(--negro); text-transform: uppercase;
+  }
+  .sec-line { flex: 1; height: 1px; background: var(--border); }
+
+  .form-group { margin-bottom: 22px; }
+  label {
+    display: block; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.3px; color: var(--gris1); margin-bottom: 5px;
+  }
+  label .req { color: var(--naranja); margin-left: 3px; }
+  .hint {
+    font-size: 12.5px; font-weight: 300; font-style: italic;
+    color: var(--gris3); margin-bottom: 7px; line-height: 1.55;
+  }
+  input[type="text"], input[type="email"], select, textarea {
+    width: 100%; padding: 11px 13px;
+    background: var(--blanco); border: 1.5px solid var(--border);
+    border-radius: 4px; color: var(--negro);
+    font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 400;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+  input::placeholder, textarea::placeholder { color: var(--gris4); }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 3px rgba(232,98,26,0.1);
+  }
+  textarea { resize: vertical; line-height: 1.6; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A8784' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center;
+    padding-right: 36px; cursor: pointer;
+    background-color: var(--blanco);
+  }
+
+  /* ── ETAPA GRID ── */
+  .etapa-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  @media (max-width: 560px) { .etapa-grid { grid-template-columns: repeat(2,1fr); } }
+  .etapa-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    padding: 12px 6px;
+    background: var(--blanco); border: 1.5px solid var(--border);
+    border-radius: 4px; cursor: pointer;
+    font-family: 'Barlow', sans-serif; font-size: 11.5px; font-weight: 600;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--gris3); text-align: center;
+    transition: all 0.15s;
+  }
+  .etapa-btn .ico { font-size: 20px; }
+  .etapa-btn input { display: none; }
+  .etapa-btn:hover { border-color: var(--gris3); color: var(--gris1); }
+  .etapa-btn.sel {
+    background: rgba(232,98,26,0.07);
+    border-color: var(--naranja); color: var(--naranja);
+  }
+
+  /* ── AREA GRID ── */
+  .area-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 7px; }
+  @media (max-width: 420px) { .area-grid { grid-template-columns: 1fr; } }
+  .area-cb {
+    display: flex; align-items: center; gap: 9px;
+    padding: 10px 13px;
+    background: var(--blanco); border: 1.5px solid var(--border);
+    border-radius: 4px; cursor: pointer;
+    font-size: 13px; font-weight: 400; color: var(--gris2);
+    transition: all 0.15s;
+  }
+  .area-cb input { display: none; }
+  .area-cb .box {
+    width: 15px; height: 15px; border-radius: 3px;
+    border: 1.5px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; background: var(--blanco);
+  }
+  .area-cb:hover { border-color: var(--gris3); color: var(--negro); }
+  .area-cb.sel { border-color: var(--naranja); color: var(--negro); }
+  .area-cb.sel .box { background: var(--naranja); border-color: var(--naranja); }
+  .area-cb.sel .box::after { content: '✓'; color: white; font-size: 9px; font-weight: 700; }
+  #otro-wrap { display: none; margin-top: 7px; }
+
+  /* ── CHAR COUNTER ── */
+  .char-row { display: flex; justify-content: flex-end; margin-top: 3px; }
+  .char-cnt { font-size: 11px; color: var(--gris4); font-weight: 500; }
+  .char-cnt.warn { color: #cc8800; }
+  .char-cnt.over { color: var(--rojo); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 36px 0 0; }
+
+  /* ── SUBMIT ── */
+  .submit-zone {
+    background: var(--blanco); border: 1.5px solid var(--border);
+    border-radius: 6px; padding: 24px; margin-top: 10px;
+  }
+  .submit-zone p {
+    font-size: 13px; font-weight: 300; color: var(--gris3);
+    margin-bottom: 18px; line-height: 1.6;
+  }
+  .btn-submit {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--naranja); color: white;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 2px;
+    padding: 13px 30px; border: none; border-radius: 3px;
+    cursor: pointer; transition: background 0.15s, transform 0.1s;
+  }
+  .btn-submit:hover { background: var(--naranja2); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { background: var(--gris4); cursor: not-allowed; transform: none; }
+  .err-msg {
+    display: none; background: #fef0f0; border: 1px solid #e8c0c0;
+    border-radius: 4px; padding: 10px 14px;
+    font-size: 13px; color: var(--rojo); margin-top: 14px;
+  }
+  input.invalid, select.invalid, textarea.invalid {
+    border-color: var(--rojo) !important;
+    box-shadow: 0 0 0 3px rgba(200,64,64,0.08) !important;
+  }
+  .success-msg {
+    display: none; background: var(--verde-bg);
+    border: 1px solid rgba(45,122,79,0.3); border-radius: 6px;
+    padding: 18px 22px; margin-top: 18px;
+  }
+  .success-msg strong {
+    font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+    letter-spacing: 1.5px; color: var(--verde);
+    display: block; margin-bottom: 5px;
+  }
+  .success-msg p { font-size: 13px; color: var(--gris2); line-height: 1.6; }
+
+  /* ── CARD PREVIEW (sticky) ── */
+  .card-preview-wrap {
+    position: sticky; top: 78px;
+  }
+  .preview-label-top {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px; letter-spacing: 3px; color: var(--gris3);
+    text-transform: uppercase; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .preview-label-top::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card {
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    font-size: 13.5px;
+  }
+  .card-head {
+    padding: 16px 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 1px;
+    color: white; background: var(--gris2);
+    transition: background 0.3s;
+    min-height: 64px;
+    display: flex; align-items: center;
+  }
+  .card-head.salud     { background: #C85FA0; }
+  .card-head.educacion { background: #5B7FE5; }
+  .card-head.vivienda  { background: #7C5CBF; }
+  .card-head.economia  { background: #E8781A; }
+  .card-head.ambiente  { background: #3B9B5E; }
+  .card-head.urbano    { background: #5499B8; }
+  .card-head.humano    { background: #D4732A; }
+  .card-head.genero    { background: #B85C9C; }
+  .card-head.movilidad { background: #4A85A8; }
+  .card-head.servicios { background: #7A8C40; }
+  .card-head.otro-area { background: var(--gris2); }
+
+  .card-scenario {
+    padding: 14px 18px 16px;
+    background: var(--crema); color: var(--gris1);
+    line-height: 1.65; min-height: 60px;
+    font-style: italic; font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-scenario .placeholder { color: var(--gris4); }
+
+  .card-section {
+    padding: 14px 18px; line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-section:last-child { border-bottom: none; }
+  .card-section.op { background: #EEF8F3; }
+  .card-section.des { background: #FDF0F8; }
+  .card-sec-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .card-sec-label.op { color: var(--verde); }
+  .card-sec-label.des { color: #C85FA0; }
+  .card-sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px; letter-spacing: 1px;
+    margin-bottom: 8px; color: var(--gris1);
+  }
+  .card-sec-body { color: var(--gris2); font-size: 13px; min-height: 36px; }
+  .card-sec-body .placeholder { color: var(--gris4); font-style: italic; }
+  .card-etapa {
+    background: var(--negro); color: var(--gris3);
+    padding: 8px 18px; font-size: 10px;
+    font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* ── PANEL RESPUESTAS ── */
+  #toggle-panel-btn {
+    display: none;
+    max-width: 1100px; margin: 0 auto 0;
+    padding: 0 40px 24px;
+  }
+  #panel-respuestas {
+    display: none;
+    max-width: 1100px; margin: 0 auto 80px;
+    padding: 0 40px;
+  }
+  #panel-respuestas h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 3px;
+    color: var(--negro); margin-bottom: 6px;
+  }
+  .panel-sub { font-size: 13px; color: var(--gris3); margin-bottom: 18px; }
+  .panel-toolbar {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .btn-small {
+    font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px; padding: 7px 14px; border-radius: 3px;
+    border: 1.5px solid var(--border); background: var(--blanco);
+    color: var(--gris2); cursor: pointer; transition: all 0.15s;
+  }
+  .btn-small:hover { border-color: var(--naranja); color: var(--naranja); }
+  .btn-small.accent { background: var(--naranja); border-color: var(--naranja); color: white; }
+  .btn-small.accent:hover { background: var(--naranja2); border-color: var(--naranja2); }
+  .btn-small.danger:hover { border-color: var(--rojo); color: var(--rojo); }
+  .resp-count { font-size: 12px; color: var(--gris3); margin-left: auto; }
+  .resp-table-wrap { overflow-x: auto; border-radius: 6px; border: 1.5px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 800px; }
+  th {
+    background: var(--crema2); color: var(--gris3);
+    font-weight: 700; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 10px 12px; text-align: left;
+    border-bottom: 1.5px solid var(--border); white-space: nowrap;
+  }
+  td {
+    padding: 10px 12px; border-bottom: 1px solid var(--crema2);
+    color: var(--gris2); vertical-align: top;
+    max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--crema); color: var(--negro); }
+  .no-data { text-align: center; padding: 40px; color: var(--gris4); font-style: italic; }
+
+  @media (max-width: 600px) {
+    #panel-respuestas, #toggle-panel-btn { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav class="nav">
+    <a class="logo-ril" href="https://www.redinnovacionlocal.org" target="_blank">RIL<span>.</span></a>
+    <span class="nav-tag">La Ciudad de Tu Vida · Uruguay 2026</span>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Localizando el juego · Uruguay 2026</div>
+    <h1>LA CIUDAD<br>DE TU <em>VIDA</em></h1>
+    <div class="hero-sub">Aportá nuevas tarjetas</div>
+    <div class="hero-desc">
+      <p>Bienvenida/o a La Ciudad de Tu Vida, una experiencia de juego donde aprenderás que, aunque el origen nos condiciona, nuestro destino se construye con cada decisión. Cada tarjeta plantea una nueva situación que se resolverá de diferente forma dependiendo las características de tu localidad y la forma en que se ha gestionado.</p>
+      <p>En este formulario tendrás que aportar diferentes tarjetas que te parezcan valiosas para el caso uruguayo, será necesario apelar a tu conocimiento técnico, experiencia personal y profesional.</p>
+      <p>Si tenés dudas, <a href="mailto:contacto@redinnovacionlocal.org">me escribís</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DOS COLUMNAS -->
+<div class="two-col">
+
+  <!-- FORMULARIO -->
+  <div class="form-side">
+
+    <!-- 01 Email -->
+    <div class="sec-label">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Tu email</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="form-group">
+      <label>Email <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="tu@email.com" required>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 02 Etapa -->
+    <div class="sec-label">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Etapa de la vida</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="form-group">
+      <label>¿A qué etapa refiere la tarjeta sugerida? <span class="req">*</span></label>
+      <div class="etapa-grid" id="etapaGrid">
+        <label class="etapa-btn" data-val="Niñez"><input type="radio" name="etapa" value="Niñez"><span class="ico">🧒</span>Niñez</label>
+        <label class="etapa-btn" data-val="Juventud"><input type="radio" name="etapa" value="Juventud"><span class="ico">🧑</span>Juventud</label>
+        <label class="etapa-btn" data-val="Adultez"><input type="radio" name="etapa" value="Adultez"><span class="ico">🧑‍💼</span>Adultez</label>
+        <label class="etapa-btn" data-val="Vejez"><input type="radio" name="etapa" value="Vejez"><span class="ico">👴</span>Vejez</label>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 03 Área -->
+    <div class="sec-label">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Área temática</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="form-group">
+      <label>Área temática de referencia <span class="req">*</span></label>
+      <div class="hint">Podés seleccionar una o más.</div>
+      <div class="area-grid" id="areaGrid">
+        <label class="area-cb" data-val="Salud y bienestar" data-cls="salud"><input type="checkbox" value="Salud y bienestar"><span class="box"></span>🌿 Salud y bienestar</label>
+        <label class="area-cb" data-val="Educación" data-cls="educacion"><input type="checkbox" value="Educación"><span class="box"></span>📚 Educación</label>
+        <label class="area-cb" data-val="Vivienda" data-cls="vivienda"><input type="checkbox" value="Vivienda"><span class="box"></span>🏘 Vivienda</label>
+        <label class="area-cb" data-val="Economía: trabajo, conocimiento." data-cls="economia"><input type="checkbox" value="Economía: trabajo, conocimiento."><span class="box"></span>💰 Economía: trabajo, conocimiento</label>
+        <label class="area-cb" data-val="Ambiente" data-cls="ambiente"><input type="checkbox" value="Ambiente"><span class="box"></span>🌱 Ambiente</label>
+        <label class="area-cb" data-val="Desarrollo Urbano e Infraestructura" data-cls="urbano"><input type="checkbox" value="Desarrollo Urbano e Infraestructura"><span class="box"></span>🏗 Desarrollo Urbano e Infraestructura</label>
+        <label class="area-cb" data-val="Desarrollo Humano y cuidados" data-cls="humano"><input type="checkbox" value="Desarrollo Humano y cuidados"><span class="box"></span>🤝 Desarrollo Humano y cuidados</label>
+        <label class="area-cb" data-val="Género y generaciones" data-cls="genero"><input type="checkbox" value="Género y generaciones"><span class="box"></span>⚖️ Género y generaciones</label>
+        <label class="area-cb" data-val="Movilidad" data-cls="movilidad"><input type="checkbox" value="Movilidad"><span class="box"></span>🚌 Movilidad</label>
+        <label class="area-cb" data-val="Servicios públicos" data-cls="servicios"><input type="checkbox" value="Servicios públicos"><span class="box"></span>🔧 Servicios públicos</label>
+        <label class="area-cb" data-val="otro" data-cls="otro-area"><input type="checkbox" value="otro"><span class="box"></span>✏️ Otro</label>
+      </div>
+      <div id="otro-wrap"><input type="text" id="area-otro" placeholder="Especificá el área…" oninput="updatePreview()"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 04 Tarjeta -->
+    <div class="sec-label">
+      <span class="sec-num">04</span>
+      <span class="sec-title">La tarjeta</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Situación que planteás <span class="req">*</span></label>
+      <div class="hint">Describí en 2ª persona ("Tenés X años…"). Incluí el contexto uruguayo concreto. No resuelvas la situación todavía.</div>
+      <textarea id="situacion" rows="5" maxlength="700"
+        placeholder="Ej: Tenés 14 años. Vivís en un pueblo del norte del país. La única escuela técnica queda a 40 km…"
+        oninput="cnt('situacion',700);updatePreview()"></textarea>
+      <div class="char-row"><span class="char-cnt" id="situacion-c">0 / 700</span></div>
+    </div>
+
+    <div class="form-group">
+      <label>Consecuencia — Localidad de oportunidades</label>
+      <div class="hint">¿Qué política, servicio o infraestructura concreta permite un buen desenlace?</div>
+      <textarea id="cons_op" rows="4" maxlength="500"
+        placeholder="Ej: El municipio tiene un programa de transporte gratuito para estudiantes del interior…"
+        oninput="cnt('cons_op',500);updatePreview()"></textarea>
+      <div class="char-row"><span class="char-cnt" id="cons_op-c">0 / 500</span></div>
+    </div>
+
+    <div class="form-group">
+      <label>Consecuencia — Localidad de desafíos <span class="req">*</span></label>
+      <div class="hint">¿Qué pasa cuando no existe ese apoyo?</div>
+      <textarea id="cons_des" rows="4" maxlength="500"
+        placeholder="Ej: No hay transporte ni convenio. La opción más cercana representa un costo inaccesible…"
+        oninput="cnt('cons_des',500);updatePreview()"></textarea>
+      <div class="char-row"><span class="char-cnt" id="cons_des-c">0 / 500</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 05 Referencia -->
+    <div class="sec-label">
+      <span class="sec-num">05</span>
+      <span class="sec-title">Contexto e inspiración</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="form-group">
+      <label>¿Pensaste en algún departamento o localidad en particular? <span class="req">*</span></label>
+      <input type="text" id="localidad" placeholder="Ej: Treinta y Tres, Rivera, Canelones…">
+    </div>
+
+    <div class="form-group">
+      <label>¿Hay algún dato, política o fuente que inspire esta carta? <span class="req">*</span></label>
+      <div class="hint">Podés mencionar un programa real, una noticia o una experiencia propia.</div>
+      <textarea id="fuente" rows="3" maxlength="400"
+        placeholder="Ej: Me inspiré en el programa Ceibal y en las brechas de conectividad en zonas rurales…"
+        oninput="cnt('fuente',400)"></textarea>
+      <div class="char-row"><span class="char-cnt" id="fuente-c">0 / 400</span></div>
+    </div>
+
+    <div class="form-group">
+      <label>Algo que quieras comentar</label>
+      <textarea id="comentario" rows="3" maxlength="400"
+        placeholder="Cualquier observación adicional…"
+        oninput="cnt('comentario',400)"></textarea>
+      <div class="char-row"><span class="char-cnt" id="comentario-c">0 / 400</span></div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-zone">
+      <p>Al enviar, tu propuesta se guardará en este dispositivo y podrás descargarla como Excel. El equipo de RIL revisará las tarjetas en la próxima sesión de clasificación.</p>
+      <button class="btn-submit" id="btnEnviar" onclick="enviar()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        ENVIAR TARJETA
+      </button>
+      <div class="err-msg" id="errMsg">Por favor completá los campos obligatorios marcados con *.</div>
+      <div class="success-msg" id="successMsg">
+        <strong>¡TARJETA ENVIADA!</strong>
+        <p>Tu propuesta quedó registrada. Podés ver y descargar todas las respuestas con el botón que aparece debajo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD PREVIEW -->
+  <div class="card-preview-wrap">
+    <div class="preview-label-top">Vista previa de tu tarjeta</div>
+    <div class="card" id="cardPreview">
+      <div class="card-head" id="prev-head">SITUACIÓN</div>
+      <div class="card-scenario" id="prev-scenario">
+        <span class="placeholder">El escenario aparecerá aquí mientras escribís…</span>
+      </div>
+      <div class="card-section op">
+        <div class="card-sec-label op">Ciudad de Oportunidades</div>
+        <div class="card-sec-body" id="prev-op">
+          <span class="placeholder">Consecuencia positiva…</span>
+        </div>
+      </div>
+      <div class="card-section des">
+        <div class="card-sec-label des">Ciudad de Desafíos</div>
+        <div class="card-sec-body" id="prev-des">
+          <span class="placeholder">Consecuencia negativa…</span>
+        </div>
+      </div>
+      <div class="card-etapa" id="prev-etapa">ETAPA · ÁREA</div>
+    </div>
+  </div>
+
+</div><!-- end two-col -->
+
+<!-- TOGGLE PANEL -->
+<div id="toggle-panel-btn">
+  <button class="btn-small accent" onclick="togglePanel()">
+    Ver respuestas guardadas (<span id="resp-badge">0</span>)
+  </button>
+</div>
+
+<!-- PANEL -->
+<div id="panel-respuestas">
+  <h2>RESPUESTAS GUARDADAS</h2>
+  <p class="panel-sub">Todas las tarjetas enviadas desde este dispositivo.</p>
+  <div class="panel-toolbar">
+    <button class="btn-small accent" onclick="descargarExcel()">⬇ Descargar Excel</button>
+    <button class="btn-small" onclick="descargarCSV()">⬇ Descargar CSV</button>
+    <button class="btn-small danger" onclick="borrarTodo()">🗑 Borrar todo</button>
+    <span class="resp-count" id="resp-count-label">0 respuestas</span>
+  </div>
+  <div class="resp-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Fecha</th><th>Email</th><th>Etapa</th><th>Área(s)</th>
+          <th>Situación</th><th>Cons. Oportunidad</th><th>Cons. Desafíos</th>
+          <th>Localidad</th><th>Fuente</th><th>Comentario</th>
+        </tr>
+      </thead>
+      <tbody id="resp-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+  const KEY = 'ril_uy_v2';
+
+  // ── ETAPA ──
+  document.querySelectorAll('.etapa-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.etapa-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      btn.querySelector('input').checked = true;
+      updatePreview();
+    });
+  });
+
+  // ── ÁREA ──
+  document.querySelectorAll('.area-cb').forEach(cb => {
+    cb.addEventListener('click', () => {
+      const input = cb.querySelector('input');
+      input.checked = !input.checked;
+      cb.classList.toggle('sel', input.checked);
+      if (cb.dataset.val === 'otro') {
+        document.getElementById('otro-wrap').style.display = input.checked ? 'block' : 'none';
+      }
+      updatePreview();
+    });
+  });
+
+  // ── CHAR COUNTERS ──
+  function cnt(id, max) {
+    const el = document.getElementById(id);
+    const c = document.getElementById(id + '-c');
+    if (!el || !c) return;
+    const n = el.value.length;
+    c.textContent = n + ' / ' + max;
+    c.className = 'char-cnt' + (n >= max ? ' over' : n > max * 0.85 ? ' warn' : '');
+  }
+
+  // ── PREVIEW ──
+  function updatePreview() {
+    const situacion = document.getElementById('situacion').value.trim();
+    const consOp    = document.getElementById('cons_op').value.trim();
+    const consDes   = document.getElementById('cons_des').value.trim();
+    const etapa     = document.querySelector('input[name="etapa"]:checked')?.value || '';
+    const areasEls  = document.querySelectorAll('.area-cb.sel');
+    const firstArea = areasEls.length ? areasEls[0] : null;
+    const areaCls   = firstArea?.dataset.cls || '';
+    const areaLabel = firstArea
+      ? (firstArea.dataset.val === 'otro' ? (document.getElementById('area-otro').value || 'Otro') : firstArea.dataset.val)
+      : '';
+
+    // HEAD
+    const head = document.getElementById('prev-head');
+    head.textContent = areaLabel || 'SITUACIÓN';
+    head.className = 'card-head ' + areaCls;
+
+    // SCENARIO
+    const sc = document.getElementById('prev-scenario');
+    if (situacion) {
+      sc.innerHTML = situacion.replace(/\n/g, '<br>');
+      sc.style.fontStyle = 'normal';
+    } else {
+      sc.innerHTML = '<span class="placeholder">El escenario aparecerá aquí mientras escribís…</span>';
+    }
+
+    // OP
+    const op = document.getElementById('prev-op');
+    op.innerHTML = consOp
+      ? consOp.replace(/\n/g, '<br>')
+      : '<span class="placeholder">Consecuencia positiva…</span>';
+
+    // DES
+    const des = document.getElementById('prev-des');
+    des.innerHTML = consDes
+      ? consDes.replace(/\n/g, '<br>')
+      : '<span class="placeholder">Consecuencia negativa…</span>';
+
+    // ETAPA
+    const etEl = document.getElementById('prev-etapa');
+    const areasAll = Array.from(areasEls).map(a =>
+      a.dataset.val === 'otro' ? (document.getElementById('area-otro').value || 'Otro') : a.dataset.val
+    );
+    const parts = [etapa, areasAll.join(', ')].filter(Boolean);
+    etEl.textContent = parts.length ? parts.join(' · ') : 'ETAPA · ÁREA';
+  }
+
+  // ── VALIDATE ──
+  function validate() {
+    const fields = ['email','situacion','cons_des','localidad','fuente'];
+    const etapa = document.querySelector('input[name="etapa"]:checked');
+    const areas = document.querySelectorAll('.area-cb.sel');
+    let ok = true, firstInvalid = null;
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      const empty = !el.value.trim();
+      el.classList.toggle('invalid', empty);
+      if (empty && !firstInvalid) firstInvalid = el;
+      if (empty) ok = false;
+    });
+    document.getElementById('etapaGrid').style.outline = etapa ? '' : '2px solid #C84040';
+    if (!etapa) { ok = false; if (!firstInvalid) firstInvalid = document.getElementById('etapaGrid'); }
+    else document.getElementById('etapaGrid').style.outline = '';
+    document.getElementById('areaGrid').style.outline = areas.length ? '' : '2px solid #C84040';
+    if (!areas.length) { ok = false; if (!firstInvalid) firstInvalid = document.getElementById('areaGrid'); }
+    else document.getElementById('areaGrid').style.outline = '';
+
+    if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return ok;
+  }
+
+  // ── ENVIAR ──
+  const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxRRWIO7mlpet-BtFS3mEuup3xGNuN96KUDKWbAp1TENaO-CyxnLnEPF2cgf_RGGsQS/exec';
+
+  async function enviar() {
+    document.getElementById('errMsg').style.display = 'none';
+    if (!validate()) { document.getElementById('errMsg').style.display = 'block'; return; }
+
+    const btn = document.getElementById('btnEnviar');
+    btn.disabled = true;
+    btn.textContent = 'ENVIANDO…';
+
+    const areas = Array.from(document.querySelectorAll('.area-cb.sel'))
+      .map(a => a.dataset.val === 'otro' ? (document.getElementById('area-otro').value || 'Otro') : a.dataset.val)
+      .join(', ');
+
+    const entrada = {
+      fecha: new Date().toLocaleString('es-UY'),
+      email: document.getElementById('email').value.trim(),
+      etapa: document.querySelector('input[name="etapa"]:checked').value,
+      areas,
+      situacion: document.getElementById('situacion').value.trim(),
+      cons_op: document.getElementById('cons_op').value.trim(),
+      cons_des: document.getElementById('cons_des').value.trim(),
+      localidad: document.getElementById('localidad').value.trim(),
+      fuente: document.getElementById('fuente').value.trim(),
+      comentario: document.getElementById('comentario').value.trim(),
+    };
+
+    // Guardar localmente siempre (respaldo)
+    const previas = cargarRespuestas();
+    previas.push(entrada);
+    localStorage.setItem(KEY, JSON.stringify(previas));
+
+    // Enviar a Google Sheets via GET
+    try {
+      const params = new URLSearchParams(entrada);
+      await fetch(SHEETS_URL + '?' + params.toString(), { mode: 'no-cors' });
+    } catch (err) {
+      console.warn('Google Sheets no disponible, respuesta guardada localmente.', err);
+    }
+
+    btn.textContent = 'ENVIADA ✓';
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth' });
+    actualizarPanel(); mostrarPanelBtn();
+  }
+
+  function cargarRespuestas() {
+    try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
+  }
+
+  function actualizarPanel() {
+    const data = cargarRespuestas();
+    document.getElementById('resp-count-label').textContent = data.length + ' respuesta' + (data.length !== 1 ? 's' : '');
+    document.getElementById('resp-badge').textContent = data.length;
+    const tbody = document.getElementById('resp-tbody');
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="11" class="no-data">Aún no hay respuestas guardadas.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = data.map((r,i) => `<tr>
+      <td>${i+1}</td><td>${r.fecha}</td><td title="${r.email}">${r.email}</td>
+      <td>${r.etapa}</td><td title="${r.areas}">${r.areas}</td>
+      <td title="${r.situacion}">${r.situacion}</td>
+      <td title="${r.cons_op}">${r.cons_op||'—'}</td>
+      <td title="${r.cons_des}">${r.cons_des}</td>
+      <td>${r.localidad}</td>
+      <td title="${r.fuente}">${r.fuente}</td>
+      <td title="${r.comentario}">${r.comentario||'—'}</td>
+    </tr>`).join('');
+  }
+
+  function mostrarPanelBtn() { document.getElementById('toggle-panel-btn').style.display = 'block'; }
+  function togglePanel() {
+    const p = document.getElementById('panel-respuestas');
+    const show = p.style.display !== 'block';
+    p.style.display = show ? 'block' : 'none';
+    if (show) actualizarPanel();
+  }
+
+  function descargarExcel() {
+    const data = cargarRespuestas();
+    if (!data.length) return alert('No hay respuestas para descargar.');
+    const cols = ['fecha','email','etapa','areas','situacion','cons_op','cons_des','localidad','fuente','comentario'];
+    const hdrs = ['Fecha','Email','Etapa','Área(s)','Situación','Cons. Oportunidad','Cons. Desafíos','Localidad','Fuente/Inspiración','Comentario'];
+    const ws_data = [hdrs, ...data.map(r => cols.map(k => r[k]||''))];
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    ws['!cols'] = hdrs.map(() => ({ wch: 32 }));
+    XLSX.utils.book_append_sheet(wb, ws, 'Tarjetas');
+    XLSX.writeFile(wb, 'ril_ciudad_vida_uruguay.xlsx');
+  }
+
+  function descargarCSV() {
+    const data = cargarRespuestas();
+    if (!data.length) return alert('No hay respuestas para descargar.');
+    const cols = ['fecha','email','etapa','areas','situacion','cons_op','cons_des','localidad','fuente','comentario'];
+    const hdrs = ['Fecha','Email','Etapa','Áreas','Situación','Cons. Oportunidad','Cons. Desafíos','Localidad','Fuente','Comentario'];
+    const esc = v => '"' + String(v).replace(/"/g,'""') + '"';
+    const rows = [hdrs.map(esc).join(','), ...data.map(r => cols.map(k => esc(r[k]||'')).join(','))];
+    const blob = new Blob(['\uFEFF' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'ril_ciudad_vida_uruguay.csv'; a.click();
+  }
+
+  function borrarTodo() {
+    if (!confirm('¿Seguro que querés borrar todas las respuestas?')) return;
+    localStorage.removeItem(KEY);
+    actualizarPanel(); document.getElementById('resp-badge').textContent = '0';
+  }
+
+  // INIT
+  (function(){
+    const data = cargarRespuestas();
+    if (data.length) { mostrarPanelBtn(); document.getElementById('resp-badge').textContent = data.length; }
+  })();
+</script>
+</body>
+</html>
